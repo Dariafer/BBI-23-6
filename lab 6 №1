@@ -1,0 +1,49 @@
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+ 
+class Program 
+{ 
+    static void Main(string[] args) 
+    { 
+        System.Console.OutputEncoding = System.Text.Encoding.UTF8; 
+        List<Runner> runners = new List<Runner>(); 
+ 
+        runners.Add(new Runner("Vetova", "Group 1", "Coach Ivaaaaaaanov ", 24)); 
+        runners.Add(new Runner("Usiko", "Group 2", "Coach Kuznezooooov", 26)); 
+        runners.Add(new Runner("Fedora", "Group 3", "Coash Klychnikova", 27)); 
+        runners.Add(new Runner("Smirno", "Group 4", "Coash Beruzovskiy", 25)); 
+ 
+        Console.WriteLine("Cross results:"); 
+        Console.WriteLine("Surname\t\tGroup\t\t\tCoash\t\t\t\t\tResult"); 
+        foreach (var runner in runners.OrderBy(runner => runner.Result)) 
+        { 
+            runner.PrintInfo(); 
+        } 
+ 
+        int passedStandart = runners.Count(runner => runner.Result <= 25); 
+        Console.WriteLine($"\nОбщее количество участниц, выполнивших норматив: {passedStandart}"); 
+        Console.ReadLine(); 
+    } 
+} 
+ 
+struct Runner 
+{ 
+    public string Surname { get; } 
+    public string Group { get; } 
+    public string TeacherSurname { get; } 
+    public double Result { get; } 
+ 
+    public Runner(string surname, string group, string teacherSurname, double result) 
+    { 
+        Surname = surname; 
+        Group = group; 
+        TeacherSurname = teacherSurname; 
+        Result = result; 
+    } 
+ 
+    public void PrintInfo() 
+    { 
+        Console.WriteLine($"{Surname}\t\t{Group}\t\t{TeacherSurname}\t\t{Result:F2}\t\t{(Result <= 25 ? "Выполнен" : "Не выполнен")}"); 
+    } 
+}
