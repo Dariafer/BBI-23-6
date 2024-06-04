@@ -1,0 +1,71 @@
+using System;
+
+class Program
+{
+    class Team
+    {
+        public int[] MembersPlaces { get; set; }
+
+        public Team(int[] places)
+        {
+            MembersPlaces = places;
+        }
+
+        public int CalculateScore()
+        {
+            int score = 0;
+
+            for (int i = 0; i < MembersPlaces.Length; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        score += 5;
+                        break;
+                    case 1:
+                        score += 4;
+                        break;
+                    case 2:
+                        score += 3;
+                        break;
+                    case 3:
+                        score += 2;
+                        break;
+                    case 4:
+                        score += 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return score;
+        }
+    }
+
+    static void Main()
+    {
+        Team[] teams = new Team[5];
+
+        teams[0] = new Team(new int[] { 1, 2, 3, 4, 5, 6 });
+        teams[1] = new Team(new int[] { 2, 3, 4, 5, 6, 1 });
+        teams[2] = new Team(new int[] { 3, 4, 5, 6, 1, 2 });
+        teams[3] = new Team(new int[] { 4, 5, 6, 1, 2, 3 });
+        teams[4] = new Team(new int[] { 5, 6, 1, 2, 3, 4 });
+
+        Team winner = teams[0];
+        int maxScore = teams[0].CalculateScore();
+
+        for (int i = 1; i < teams.Length; i++)
+        {
+            int currentScore = teams[i].CalculateScore();
+            if (currentScore > maxScore || (currentScore == maxScore && teams[i].MembersPlaces[0] == 1))
+            {
+                maxScore = currentScore;
+                winner = teams[i];
+            }
+        }
+
+        Console.WriteLine($"Победитель - команда с баллами: {maxScore}");
+        Console.ReadLine();
+    }
+}
